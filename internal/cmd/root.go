@@ -122,6 +122,11 @@ func Execute(args []string) (err error) {
 		return err
 	}
 
+	if err = enforcePermissions(kctx, cli.Account); err != nil {
+		_, _ = fmt.Fprintln(os.Stderr, errfmt.Format(err))
+		return err
+	}
+
 	logLevel := slog.LevelWarn
 	if cli.Verbose {
 		logLevel = slog.LevelDebug
